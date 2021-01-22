@@ -1,0 +1,71 @@
+>>> args: {'job_bookmark_option': 'job-bookmark-enable', 'job_bookmark_from': None, 'job_bookmark_to': None, 'JOB_ID': 'j_3ec4e436e88d4ce273f3f0dc8a56cc3a9f0df1709194a87e8fb38386867bdc41', 'JOB_RUN_ID': 'jr_75cd3d920f532d57f0c2a2625cff37f11a7f54b9da587fb952740756063a2fbc', 'SECURITY_CONFIGURATION': None, 'encryption_type': None, 'enable_data_lineage': None, 'RedshiftTempDir': 's3://banking-datalake-repo-staging/trusted-data/temporary-etl-glue/', 'TempDir': 's3://banking-datalake-repo-staging/trusted-data/temporary-etl-glue/', 'JOB_NAME': 'glue-spark-test'}
+2021-01-22 13:44:30 INFO root: Job <glue-spark-test> (GLUE SPARK ETL) Started at 2021-01-22 13:44:30
+2021-01-22 13:44:42 INFO root: Data file(s) read from s3://banking-datalake-repo-staging/raw-data/temp/csv-data/load.csv successfully ...
+2021-01-22 13:44:42 INFO root: Created Spark Data Frame ...
+2021-01-22 13:44:44 INFO root: Count: 6
+root
+ |-- id: string (nullable = true)
+ |-- name: string (nullable = true)
+ |-- email: string (nullable = true)
+ |-- phone: string (nullable = true)
+ |-- address: string (nullable = true)
+ |-- age: string (nullable = true)
+ |-- create_date: string (nullable = true)
+ |-- update_date: string (nullable = true)
+
++---+--------------------+--------------------+---------------+--------------------+---+--------------------+--------------------+
+| id|                name|               email|          phone|             address|age|         create_date|         update_date|
++---+--------------------+--------------------+---------------+--------------------+---+--------------------+--------------------+
+|  1|david.lynch@cogni...|         David Lynch|(11) 99999-9997|Mulholland Drive,...| 72|2018-03-03 18:47:...|2018-03-03 18:47:...|
+|  1|david.lynch@cogni...|         David Lynch|(11) 99999-9998|Mulholland Drive,...| 72|2018-03-03 18:47:...|2018-04-14 17:09:...|
+|  1|david.lynch@cogni...|         David Lynch|(11) 99999-9999|Mulholland Drive,...| 72|2018-03-03 18:47:...|2018-05-23 10:13:...|
+|  2|sherlock.holmes@c...|     Sherlock Holmes|(11) 94815-1623|221B Baker Street...| 34|2018-04-21 20:21:...|2018-04-21 20:21:...|
+|  3|spongebob.squarep...|Spongebob Squarep...|(11) 91234-5678|124 Conch Street,...| 13|2018-05-19 04:07:...|2018-05-19 04:07:...|
+|  3|spongebob.squarep...|Spongebob Squarep...|(11) 98765-4321|122 Conch Street,...| 13|2018-05-19 04:07:...|2018-05-19 05:08:...|
++---+--------------------+--------------------+---------------+--------------------+---+--------------------+--------------------+
+
+2021-01-22 13:44:45 INFO root: json schema content: {'age': 'integer', 'create_date': 'timestamp', 'update_date': 'timestamp'}
+root
+ |-- id: string (nullable = true)
+ |-- name: string (nullable = true)
+ |-- email: string (nullable = true)
+ |-- phone: string (nullable = true)
+ |-- address: string (nullable = true)
+ |-- age: integer (nullable = true)
+ |-- create_date: timestamp (nullable = true)
+ |-- update_date: timestamp (nullable = true)
+
++---+--------------------+--------------------+---------------+--------------------+---+--------------------+--------------------+
+| id|                name|               email|          phone|             address|age|         create_date|         update_date|
++---+--------------------+--------------------+---------------+--------------------+---+--------------------+--------------------+
+|  1|david.lynch@cogni...|         David Lynch|(11) 99999-9999|Mulholland Drive,...| 72|2018-03-03 18:47:...|2018-05-23 10:13:...|
+|  2|sherlock.holmes@c...|     Sherlock Holmes|(11) 94815-1623|221B Baker Street...| 34|2018-04-21 20:21:...|2018-04-21 20:21:...|
+|  3|spongebob.squarep...|Spongebob Squarep...|(11) 98765-4321|122 Conch Street,...| 13|2018-05-19 04:07:...|2018-05-19 05:08:...|
++---+--------------------+--------------------+---------------+--------------------+---+--------------------+--------------------+
+
+2021-01-22 13:45:01 INFO root: Parquet file(s) saved on s3://banking-datalake-repo-staging/raw-data/temp/output-parquet/ successfully ...
+2021-01-22 13:45:05 INFO root: Parquet data output file(s) read from s3://banking-datalake-repo-staging/raw-data/temp/output-parquet/ successfully ...
+2021-01-22 13:45:05 INFO root: Created Output Spark Data Frame ...
+2021-01-22 13:45:08 INFO root: Count: 3
+root
+ |-- id: string (nullable = true)
+ |-- name: string (nullable = true)
+ |-- email: string (nullable = true)
+ |-- phone: string (nullable = true)
+ |-- address: string (nullable = true)
+ |-- age: integer (nullable = true)
+ |-- create_date: timestamp (nullable = true)
+ |-- update_date: timestamp (nullable = true)
+
+2021-01-22 13:45:08 INFO root: Result Dataframe ...
++---+--------------------+--------------------+---------------+--------------------+---+--------------------+--------------------+
+| id|                name|               email|          phone|             address|age|         create_date|         update_date|
++---+--------------------+--------------------+---------------+--------------------+---+--------------------+--------------------+
+|  1|david.lynch@cogni...|         David Lynch|(11) 99999-9999|Mulholland Drive,...| 72|2018-03-03 18:47:...|2018-05-23 10:13:...|
+|  2|sherlock.holmes@c...|     Sherlock Holmes|(11) 94815-1623|221B Baker Street...| 34|2018-04-21 20:21:...|2018-04-21 20:21:...|
+|  3|spongebob.squarep...|Spongebob Squarep...|(11) 98765-4321|122 Conch Street,...| 13|2018-05-19 04:07:...|2018-05-19 05:08:...|
++---+--------------------+--------------------+---------------+--------------------+---+--------------------+--------------------+
+
+2021-01-22 13:45:09 INFO root: Job <glue-spark-test> (GLUE SPARK ETL) Ended at 2021-01-22 13:45:09
+2021-01-22 13:45:09 INFO root: Job commited ...
+2021-01-22 13:45:09 INFO root: Process Terminated ...

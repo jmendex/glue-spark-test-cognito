@@ -1,0 +1,51 @@
+##############################################################################
+## NOTAS GERAIS SOBRE A SOLUÇÃO
+##############################################################################
+
+------------------------------------------------------------------------------
+Características do serviço de execução:
+------------------------------------------------------------------------------
+
+- Tipo: Spark Application
+- Spark Language API PySpark/Python 3.7
+- Cloud provider: AWS (Amazon Web Services)
+- Serviços: Glue Job 2.0, S3 (object repository) - ETL gerenciável da AWS, simples, esclával e sem servidor.
+- Tempo médio de execução do ETL: ~30 seg a 1 min (total) (startup do serviço/Spark ~7 seg) 
+
+Justificativas da escolha do serviço: 
+-------------------------------------
+Serverless, rápido e simples. Para o teste, apesar do custo de uso de DPU ser um pouco elevado, se torna mais vantajoso não provisionar Cluster EMR, e sim realizar as execuções pontuais para o teste, de forma serverless. O controle de custo para o Glue neste cenário fica a cada execução em comparação a um cluster EMR, que seria realizado até nos casos de ociosidade. Em ambiente produtivo, há de se discutir e considera cada cenário, qual o melhor serviço a utilizar. 
+
+Observações:
+ - O deploy do serviço na AWS foi realizado via terraform em ambiente previamente configurado, com as devidas permissões IAM ajustadas para o serviço.
+
+------------------------------------------------------------------------------
+Formato de arquivo de saída escolhido: PARQUET
+------------------------------------------------------------------------------
+
+Justificativas: Arquivo orientado a colunas (colunar), de rápido acesso devido a sua estrutura, tanto Hadoop ecossystem, quanto Redshift, Athena (AWS Ecossystem) funciona com bastante eficiência, é compactado e rápido (neste exemplo o formato de compressão utilizado: Snappy).
+
+General considerations:
+-----------------------
+Parquet is a columnar format that is supported by many other data processing systems. Spark SQL provides support for both reading and writing Parquet files that automatically preserves the schema of the original data. When reading Parquet files, all columns are automatically converted to be nullable for compatibility reasons.
+
+
+Apache Parquet:
+---------------
+Apache Parquet is an open-source free data storage format that is similar to CSV but stores data in binary format. Also it is columnar based, but at the same time supports complex objects with multiple levels. Apache Parquet is a part of the Apache Hadoop ecosystem.
+Apache Parquet is extensively used within AWS and allows to save up to 95% of costs for computing. Also Parquet is compatible with most of the data processing frameworks in the Hadoop environment.
+
+
+------------------------------------------------------------------------------
+ANEXOS:
+------------------------------------------------------------------------------
+
+1 - Arquivo .py com o script Spark do Job;
+1 - Arquivo .parquet com o resultado do processamento realizado no script;
+2 - Arquivos de imagens ilustrativas dos paineis do Glue Job e output no S3;
+1 - Arquivo txt com o log (cloudwatch) de uma das execuções do Script Glue Job;
+1 - Arquivo com notas (read.me).
+
+Obrigado!
+Juliano M Mendes
+21.9.94641431
