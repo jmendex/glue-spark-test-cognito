@@ -1,2 +1,2 @@
-# glue-spark-test-cognito
-Teste de Job ETL em Spark para o Cognito.ai
+# glue-spark-test
+Teste de Job ETL em Spark
